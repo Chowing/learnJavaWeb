@@ -16,3 +16,21 @@ export JRE_HOME=/usr/java/jdk1.8.0_121/jre
 ./startup.sh
 ```
 
+搞个脚本，用service管理
+> #! /bin/bash
+# chkconfig: 35 85 15
+export JRE_HOME=/usr/local/jre
+case "$1" in
+  start)
+     sudo –E -u nobody /usr/local/tomcat/bin/startup.sh
+  ;;
+  stop)
+     /usr/local/tomcat/bin/shutdown.sh
+  ;;
+  restart)
+     $0 stop
+     $0 start
+  ;;
+esac
+
+
