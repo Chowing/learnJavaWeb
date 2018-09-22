@@ -16,7 +16,7 @@ export JRE_HOME=/usr/java/jdk1.8.0_121/jre
 ./startup.sh
 ```
 
-搞个脚本，用service管理
+##搞个脚本，用service管理
 > #! /bin/bash
 # chkconfig: 35 85 15
 export JRE_HOME=/usr/local/jre
@@ -33,4 +33,15 @@ case "$1" in
   ;;
 esac
 
+##为脚本设置执行权限，设置开机启动，然后启动
+```
+chmod +x /etc/init.d/tomcat
+chkconfig --add tomcat
+service tomcat start
+```
+开启8080端口监听
+```
+iptables -I INPUT -p tcp --dport 8080 -j ACCEPT
+service iptables save
+```
 
