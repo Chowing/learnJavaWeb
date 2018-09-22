@@ -15,3 +15,6 @@ iptables -I INPUT -p tcp --dport 80 -j ACCEPT
 service iptables save
 重启
 service iptables restart
+
+添加到环境变量
+ln -s /usr/local/nginx/sbin/nginx /usr/local/sbin/nginx
