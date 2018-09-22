@@ -18,6 +18,10 @@ export JRE_HOME=/usr/java/jdk1.8.0_121/jre
 
 搞个脚本，用service管理
 ```
+nano /etc/init.d/tomcat
+```
+
+```
 #! /bin/bash
 # chkconfig: 35 85 15
 export JRE_HOME=/usr/local/jre
