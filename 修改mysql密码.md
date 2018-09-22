@@ -22,4 +22,3 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY 'NewPassword';
 ```
 回到/etc/my.cnf，去掉skip-grant-tables
 重启Mysql
-Now you will be able to login with the new password
