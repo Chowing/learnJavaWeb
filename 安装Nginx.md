@@ -8,3 +8,7 @@ gcc
 ./configure --prefix=/usr/local/nginx --with-http_ssl_module
 
 make && make install
+
+开发80端口
+iptables -I INPUT -p tcp --dport 80 -j ACCEPT
+service iptables save
