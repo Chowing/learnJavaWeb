@@ -11,4 +11,7 @@ make && make install
 
 开发80端口
 iptables -I INPUT -p tcp --dport 80 -j ACCEPT
+保存
 service iptables save
+重启
+service iptables restart
