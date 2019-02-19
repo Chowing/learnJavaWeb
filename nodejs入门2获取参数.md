@@ -23,7 +23,7 @@ function service(req, response) {
 
 http.createServer(service).listen(8088);  //基于service函数来创建服务器，服务器监听于8088端口
 ```
-访问结果
+访问 http://localhost:8088/?time=23:01 ，结果
 ```
 method = GET
 url    = /?time=23:01
