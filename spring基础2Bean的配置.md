@@ -3,7 +3,7 @@ Spring容器支持XML和Properties两种格株式的配置文件,在实际开发
 在Spring中,XML配置文件的根元素是<beans>,<beans>中包含了多个<bean>子元素,每一个<bean>子元素定义了一个Bean,并描述了该Bean 如何被装配到 Spring 容器中。
 <bean>元素中同样包含了多个属性以及子元素, 其常用属性及子元素如下所示。
 属性或子元素名称|描述
----|---|---
+---|---
 id|是一Bean的唯一标识行,Spring 容器对Bean 的配置,管理都通过该属性来完成
 name|Spring 容器同样可以通过此属性对容器中的 Bean 进行配置和管理,name 属性中可以为Bean 指定多个名称, 每个名称之间用逗号或分号隔开
 class|该属性指定了 Bean 的具体实现类,它必须是一个完整的类名,使用类的全限定名
@@ -31,5 +31,6 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 </beans>
 ```
 在上述代码中, 分别使用id 属性和 name 属性定义了两个Bean, 并使用class元素指定其对应的实现类。
+
 如果在Bean 中未指定id 和name, 则Spring会将dlass值当作id使用。
 
