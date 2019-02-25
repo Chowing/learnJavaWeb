@@ -1,6 +1,6 @@
-Spring 可以被看作是一个大型工厂, 这个工厂的作用就是生产和管理 Spring 容器中的Bean，使用这个工厂, 需要对Spring的配置文件进行配置。
-Spring容器支持XML和Properties两种格株式的配置文件,在实际开发中,最常使用的就是XML格式的配置方式。 这种配置方式通过XML文件来注册并管理Bean 之间的依赖关系。
-在Spring中,XML配置文件的根元素是<beans>,<beans>中包含了多个<bean>子元素,每一个<bean>子元素定义了一个Bean,并描述了该Bean 如何被装配到 Spring 容器中。
+Spring 可以被看作是一个大型工厂, 这个工厂的作用就是生产和管理 Spring 容器中的Bean，使用这个工厂, 需要对Spring的配置文件进行配置。  
+Spring容器支持XML和Properties两种格株式的配置文件,在实际开发中,最常使用的就是XML格式的配置方式。 这种配置方式通过XML文件来注册并管理Bean 之间的依赖关系。  
+在Spring中,XML配置文件的根元素是<beans>,<beans>中包含了多个<bean>子元素,每一个<bean>子元素定义了一个Bean,并描述了该Bean 如何被装配到 Spring 容器中。  
 <bean>元素中同样包含了多个属性以及子元素, 其常用属性及子元素如下所示。
   
 属性或子元素名称 | 描述
