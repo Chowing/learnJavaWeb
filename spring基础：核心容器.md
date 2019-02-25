@@ -29,10 +29,10 @@ FileSystemXmlApplicationContext不再从类路径中读取配置文件,而是通
 在使用 Spring 框架时, 可以通过实例化其中任何一个类来创建 ApplicationContext
 容器。通常在 Java 项目中,会采用通过 ClassPathXmlApplicationContext 类来实例化ApplicationContext 容器的方式, 而在Web 项目中, ApplicationContext 容器的实例化工作会交由Web 服务器来完成。Web 服务器实例化 ApplicationContext 容器时, 通常会使用基于ContextLoaderListener实现的方式,此种方式只需要在web.xml中添加如下代码。
 ```xml
-<!-指定Spring配置文件的位置,多个配置文件时, 以逗号分隔-->
+<!--指定Spring配置文件的位置,多个配置文件时, 以逗号分隔-->
 <context-param>
   <param-name>contextConfigLocation</param-name>
-  <1-- Spring将加载 spring目录下的 applicationContext.xml文件 -->
+  <!-- Spring将加载 spring目录下的 applicationContext.xml文件 -->
   <param-value>
     classpath:spring/applicationContext.xml
   </param-value>
