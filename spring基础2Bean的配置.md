@@ -11,7 +11,7 @@ class | 该属性指定了 Bean 的具体实现类,它必须是一个完整的�
 scope | 用来设定 Bean 实例的作用域,其属性值 :singleton(单例),prototype(原型),request,session,global Session,application和websocket。其默认值为 singleton。
 constructor-arg | 是<bean>元素的子元素,可以使用此元素传入构造参数进行实例化。该元素的index属性指定构造参数的序号(从0开始),type 属性指定构造参数的类型,参数值可以通过 ref 属性或value 属性直接指定, 也可以通过ref或value子元素指定
 property | <bean>元素的子元素,用于调用Bean 实例中的 setter 方法完成属性赋值,从而完成依赖注入。该元素的name 属性指定 Bean 实例中的相应属性名,ref 属性或value 属性用于指定参数值
-ref | 是<property>,<constructor-arg>等元素的属性或子元素,可以用于指定对 Bean工厂中某个Bean 实例的引用
+ref | 是'<property>',<constructor-arg>等元素的属性或子元素,可以用于指定对 Bean工厂中某个Bean 实例的引用
 value | 是<property>,<constructor-arg>等元素的属性或子元素,可以用于直接指定一个常量值
 list | 用于封装 List 或数组类型的依赖注入
 set | 用于封装 Set 类型属性的依赖注入
@@ -25,10 +25,10 @@ entry | 是<map>元素的子元素, 用于设置一个键值对。其 key 属性
 <beans xmlns-"http://www.springframework.org/schema/beans"
 xmlns:xsi="http://www.w3.org/2001/XMILSchema-instance"xsi:schemaLocation-"http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans.xsd">
-<!--使用id属性定义bean1,其对应的实现类为 com.itheima.Bean1-->
-<bean id="bean1" class="com.itheima.Bean1" />
-<!--使用name属性定义bean2,其对应的实现类为 com.itheima.Bean2-->
-<bean name="bean2" class="com.itheima.Bean2" />
+    <!--使用id属性定义bean1,其对应的实现类为 com.itheima.Bean1-->
+    <bean id="bean1" class="com.itheima.Bean1" />
+    <!--使用name属性定义bean2,其对应的实现类为 com.itheima.Bean2-->
+    <bean name="bean2" class="com.itheima.Bean2" />
 </beans>
 ```
 在上述代码中, 分别使用id 属性和 name 属性定义了两个Bean, 并使用class元素指定其对应的实现类。  
