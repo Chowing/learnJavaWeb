@@ -31,20 +31,23 @@ FileSystemXmlApplicationContext不再从类路径中读取配置文件,而是通
 ```xml
 <!-指定Spring配置文件的位置,多个配置文件时, 以逗号分隔-->
 <context-param>
-<param-name>contextConfigLocation</param-name>
-<1-- Spring将加载 spring目录下的 applicationContext.xml文件 -->
-<param-value>
-classpath:spring/applicationContext.xml
-</param-value>
+  <param-name>contextConfigLocation</param-name>
+  <1-- Spring将加载 spring目录下的 applicationContext.xml文件 -->
+  <param-value>
+    classpath:spring/applicationContext.xml
+  </param-value>
 </context-param>
-<!-- 指定以 ContextLoaderListener方式启动 Spring容器一
+<!-- 指定以 ContextLoaderListener方式启动 Spring容器 -->
 <listener>
-<listener-class>
-org.springframework.web.context.ContextLoaderListener
-</listener-class>
+  <listener-class>
+    org.springframework.web.context.ContextLoaderListener
+  </listener-class>
 </listener>
 ```
-在本书后面章节讲解三大框架整合以及项目时,将采用基于 ContextLoaderListener的方式由Web服务器实例化ApplicationContext容器。
-创建Spring 容器后,就可以获取 Spring 容器中的Bean.Spring获取Bean 的实例通常采用以下两种方法。
+项目时,将采用基于 ContextLoaderListener的方式由Web服务器实例化ApplicationContext容器。创建Spring 容器后,就可以获取 Spring 容器中的Bean。Spring获取Bean 的实例通常采用以下两种方法。
 + Object getBean(String name): 根据容器中Bean的id或name 来获取指定的Bean, 获取之后需要进行强制类型转换。
++ <T> T getBean(Class<T> requiredType): 根据类的类型来获取Bean 的实例.由于此方法为泛型方法, 因此在获取Bean 之后不需要进行强制类型转换。
+#### 小提示
+Bean Factory和 ApplicationContexr两种容器都是通过XML配置文件加载Bean的。 二者的主要区别在于, 如果 Bean 的某一个属性没有注入, 使用 BeanFacotry 加载后, 在第一次调用getBean0方法时会抛出异常, 而 ApplicauonContexr 则在初始化时自检 ,这样有利于检查所依赖属性是否注入。 因此,在实际开发中, 通常都优先选择使用 ApplicationContext, 而只有在系统资源较少时,才考虑使用 BeanFactory。
+
 
