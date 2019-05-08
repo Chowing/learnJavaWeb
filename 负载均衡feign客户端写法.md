@@ -43,6 +43,6 @@ public class HiController {
     }
 }
 ```  
-+ 启动eureka-server工程，端口号为8761，启动两个eureka-client工程的实例，端口号分别为8762和8763；启动eureka-feign-client工程，端口号为8765，在浏览器上多次访 问 http://localhost:8765， 浏览器会轮流显示以下内容：
++ 启动eureka-server工程，端口号为8761，启动两个eureka-client工程的实例，端口号分别为8762和8763；启动eureka-feign-client工程，端口号为8765，在浏览器上多次访 问 http://localhost:8765/hi， 浏览器会轮流显示以下内容：
 > hi forezp,i am from port:8763  
 > hi forezp,i am from port:8762
