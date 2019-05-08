@@ -1,0 +1,29 @@
+# 尤里卡服务器
+server:
+  port: 8761
+spring:
+  application:
+    name: eureka-server
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false # 不要注册到服务器
+    fetchRegistry: false      # 不要获取服务器的注册信息
+    # 自己作为服务器，公布出来的地址
+    serviceUrl: 
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+# 尤里卡客户端
+server:
+  port: 8762
+spring:
+  application:
+    name: eureka-client
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+      
+

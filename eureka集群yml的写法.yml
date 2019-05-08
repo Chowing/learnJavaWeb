@@ -1,0 +1,42 @@
+# 服务器写法
+---
+spring:
+   profiles: peer1
+server:
+   port: 8761
+eureka:
+   instance:
+      hostname: peer1
+   client:
+      serviceUrl:
+         defaultZone: http://peer2:8762/eureka/
+---
+spring:
+   profiles: peer2
+server:
+   port: 8762
+eureka:
+   instance:
+      hostname: peer2
+   client:
+      serviceUrl:
+         defaultZone: http://peer1:8761/eureka/
+
+# 客户端写法
+server:
+  port: 8763
+spring:
+  application:
+    name: eureka-client
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:8761/eureka/
+
+# 进入工程， 通过 Maven 编译工程， Maven 命令为 mvn clean package；
+# 编译完成后，在工程的目录下会有一个 target 文件夹，进入该文件夹，可以发现己经生成了一个 eureka-server-0.0.1-SNAPSHOT.jar 的 jar包。 
+# 通过 java -jar 的方式启动工程 ， 并通过 spring.profiles.active 指定启动的配置文件。
+# 在本案例中需要启动两个 Eureka Server 实例，它们的 spring.profiles.active 配置文件分别为 peer1和peer2 。启动实例的命令如下：
+
+java -jar eureka-server-0.0.1-SNAPSHOT.jar --spring.profiles.active=peer1
+java -jar eureka-server-0.0.1-SNAPSHOT.jar --spring.profiles.active=peer2
