@@ -8,7 +8,8 @@ public class FeignConfig {
     }
 }
 ```  
-+ 使用配置类的接口，value 为其他服务的名字；
++ 根据feign的规则实现接口，并在接口上面加上＠FeignClient注解，value 为其他服务的名字；
++ 程序启动后，会进行包扫描，扫描所有的＠FeignClient的注解的类，并将这些信息注入IoC容器中。
 ```java
 @FeignClient(value = "eureka-client", configuration = FeignConfig.class)
 public interface EurekaClientFeign {
