@@ -1,6 +1,6 @@
 
 1、阿里云服务器上开放3306端口，照着这个做 http://how2j.cn/k/deploy2linux/deploy2linux-openport/1604.html
 2、数据库修改 
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '这里写你设置的密码' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 3、重启数据库
