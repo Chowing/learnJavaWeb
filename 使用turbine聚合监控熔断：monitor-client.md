@@ -1,7 +1,7 @@
 + Hystrix Dashboard 是监控 Hystrix 的熔断器状况的一个组件，提供了数据监控图形化界面，在 Feign 中使用只需要两步：
 ```xml
 <dependency>
-    <groupId>org.springframework.cloud</groupId>
+	<groupId>org.springframework.cloud</groupId>
 	<artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
 </dependency>
 <dependency>
@@ -34,7 +34,7 @@ public class EurekaFeignClientApplication {
 	<artifactId>spring-cloud-starter-turbine</artifactId>
 </dependency>
 <dependency>
-    <groupId>org.springframework.boot</groupId>
+	<groupId>org.springframework.boot</groupId>
 	<artifactId>spring-boot-starter-actuator</artifactId>
 </dependency>
 ```
