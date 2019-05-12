@@ -1,7 +1,9 @@
-SpringCloud Bus是用轻量的消息代理将分布式的节点连接起来，可以用于广播配置文件的更改或者服务的监控管理。关键的思想就是，消息总线可以为微服务做监控，也可以实现应用程序之间相通信。 SpringCloud Bus可选的消息代理组建包括RabbitMQ、AMQP和Kafka等。  
+SpringCloud Bus是用轻量的消息代理将分布式的节点连接起来，可以用于广播配置文件的更改或者服务的监控管理。关键的思想就是，消息总线可以为微服务做监控，也可以实现应用程序之间相通信。 SpringCloud Bus可选的消息代理组建包括RabbitMQ、AMQP和Kafka等。
+<br/>
 为什么需要用 Spring Cloud Bus 去刷新配置呢？  
+<br/>
 如果有几十个微服务，而每一个服务又是多实例，当更改配置时，需要重新启动多个微服务实例，会非常麻烦。 SpringCloud Bus的一个功能就是让这个过程变得简单，当远程Git仓库的配置更改后，只需要向某一个微服务实例发送一个Post请求，通过消息组件通知其他微服务实例重新拉取配置文件。  
-
+<br/>
 只需要改造 configClient 工程。首先，需要在porn文件中引入用 RabbitMQ 实现的SpringCloud Bus的起步依赖spring-cloud-starter-bus-amqp 。 如果读者需要自己实践，则需要安装 RabbitMQ 服务器。 pom文件添加的依赖如下：  
 ```xml
 <dependency>
@@ -69,5 +71,4 @@ foo version 1
 ```html
 foo version 2
 ```
-可见，通过向8762端口的微服务实例发送Post请求http://localhost:8762/bus/refresh ，请求刷新配置，由于使用了SpringCloud Bus，其他服务实例（如案例中的 8763 端口的服务实例）会接收到刷新配置的消息，也会刷新配置。另外，“a/bus/refresh” API接口可以指定服务，即使用“destination”参数 ，例如“/bus/refresh?destination=eureka-client:**＂，即刷新服务名为
-eureka-client的所有服务实例。
+可见，通过向8762端口的微服务实例发送Post请求http://localhost:8762/bus/refresh ，请求刷新配置，由于使用了SpringCloud Bus，其他服务实例（如案例中的 8763 端口的服务实例）会接收到刷新配置的消息，也会刷新配置。另外，“a/bus/refresh” API接口可以指定服务，即使用“destination”参数 ，例如“/bus/refresh?destination=eureka-client:*＂，即刷新服务名为eureka-client的所有服务实例。
