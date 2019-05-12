@@ -76,3 +76,25 @@ eureka-server工程启动后，启动eureka-client工程，你会在控制台的
 foo version 1
 ```
 可见eureka-client工程成功地向eureka-server工程读取了配置文件中foo变量的值。
+
+#### 从Git获取配置
+SpringCloud Config支持从Git仓库读取配置文件，这样做的好处就是将配置统一管理，并且可以通过SpringCloud Bus在不人工启动程序的情况下对Config Client的配置进行刷新。
+```yml
+server:
+  port: 8769
+
+# remote git
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/forezp/SpringcloudConfig
+          searchPaths: respo
+          username: miles02@163.com
+          password:
+      label: master
+  application:
+    name: config-server
+```
+其中， uri 为远程Git仓库的地址，serachPaths为搜索远程仓库的文件夹地址，usemame和password为Git仓库的登录名和密码。如果是私人Git仓库，登录名和密码是必须的；如果是公开的Git仓库，可以不需要。label 为git仓库的分支名，本例从master读取。将上一节的 eureka心lient-dev.yml 上传到远程仓库中，上传的路径为 https://github.com/forezp/SpringcloudConfig。可以自己申请 GitHub 账号，并在 GitHub 上创建代码仓库，将eureka-client-dev.yml上传到自己的仓库。重新启动config-server, config-server启动成功后，启动config-client，可以发现config-client的端口为8762 。 
