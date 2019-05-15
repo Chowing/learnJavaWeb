@@ -4,7 +4,8 @@
 3. 最后，在SpringBootAdminServer中集成Turbine组件，这样就可以将Turbine界面显示；  
 <br/>
 特别地，为了测试，写一个API接口“/hi”在方法上加上＠HystrixCommand注解，该注解用于创建一个熔断器，井指明fallbackMethod（回退方法）为“hiError”方法。在hiError()方法中，直接返回一
-个字符串  
+个字符串
+<br/>
 ```java
 @SpringBootApplication
 @EnableEurekaClient
