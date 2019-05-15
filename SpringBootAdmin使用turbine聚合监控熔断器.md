@@ -1,7 +1,8 @@
-### 在SpringBootAdmin中，可以很方便地集成Turbine组件  
+#### 在SpringBootAdmin中，可以很方便地集成Turbine组件  
 1. 首先需要两个Eureka Client 工程，在这两个EurekaClient的工程中实现hystrix熔断器和hystrix Dashboard组件；
 2. 然后需要一个Turbine工程，在这个工程中聚合两个Eureka Client的Hystrix DashBoard；
 3. 最后，在SpringBootAdminServer中集成Turbine组件，这样就可以将Turbine界面显示；  
+
 特别地，为了测试写一个API“/hi”在方法上加上＠HystrixCommand注解，该注解用于创建一个熔断器，井指明fallbackMethod（回退方法）为“hiError”方法。在hiError()方法中，直接返回一个字符串
 ```JAVA
 @SpringBootApplication
