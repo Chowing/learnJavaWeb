@@ -1,0 +1,37 @@
+[root@tw30mall ~]# docker pull nginx:1.10
+1.10: Pulling from library/nginx
+6d827a3ef358: Pull complete 
+1e3e18a64ea9: Pull complete 
+556c62bb43ac: Pull complete 
+Digest: sha256:6202beb06ea61f44179e02ca965e8e13b961d12640101fca213efbfd145d7575
+Status: Downloaded newer image for nginx:1.10
+docker.io/library/nginx:1.10
+[root@tw30mall ~]# docker run -p 80:80 --name nginx \
+> -v /mydata/nginx/html:/usr/share/nginx/html \
+> -v /mydata/nginx/logs:/var/log/nginx  \
+> -d nginx:1.10
+695cb1f90139ed81c03771b54aab91a74a8d7e1a1d20133f5cca5b081fdc471f
+[root@tw30mall ~]# docker container cp nginx:/etc/nginx /mydata/nginx/
+[root@tw30mall ~]# cd /mydata/nginx
+[root@tw30mall nginx]# ll
+total 0
+drwxr-xr-x. 2 root root   6 Jan 13 02:04 html
+drwxr-xr-x. 2 root root  41 Jan 13 02:04 logs
+drwxr-xr-x. 3 root root 177 Mar 27  2017 nginx
+[root@tw30mall nginx]# mv nginx conf
+[root@tw30mall nginx]# ll
+total 0
+drwxr-xr-x. 3 root root 177 Mar 27  2017 conf
+drwxr-xr-x. 2 root root   6 Jan 13 02:04 html
+drwxr-xr-x. 2 root root  41 Jan 13 02:04 logs
+[root@tw30mall nginx]# docker stop nginx
+nginx
+[root@tw30mall nginx]# docker rm nginx
+nginx
+[root@tw30mall nginx]# docker run -p 80:80 --name nginx \
+> -v /mydata/nginx/html:/usr/share/nginx/html \
+> -v /mydata/nginx/logs:/var/log/nginx  \
+> -v /mydata/nginx/conf:/etc/nginx \
+> -d nginx:1.10
+c0b7f032158c2715ee9e1418d21f4dcf574075e5be5a70366b531d7f52a756ce
+[root@tw30mall nginx]# 

@@ -1,0 +1,133 @@
+[root@tw30mall ~]# docker run -p 3306:3306 --name mysql \
+> -v /mydata/mysql/log:/var/log/mysql \
+> -v /mydata/mysql/data:/var/lib/mysql \
+> -v /mydata/mysql/conf:/etc/mysql \
+> -e MYSQL_ROOT_PASSWORD=root  \
+> -d mysql:5.7
+Unable to find image 'mysql:5.7' locally
+5.7: Pulling from library/mysql
+a076a628af6f: Pull complete 
+f6c208f3f991: Pull complete 
+88a9455a9165: Pull complete 
+406c9b8427c6: Pull complete 
+7c88599c0b25: Pull complete 
+25b5c6debdaf: Pull complete 
+43a5816f1617: Pull complete 
+7065aaa2655f: Pull complete 
+b4bc531db40f: Pull complete 
+8c3e9d7c9815: Pull complete 
+fadfb9734ed2: Pull complete 
+Digest: sha256:e08834258fcc0efd01df358222333919df53d4a0d9b2a54da05b204b822e3b7b
+Status: Downloaded newer image for mysql:5.7
+c5ee6283fd755244ef8fd9095d8cfa0c19f3969ee02fca3377c8f977fa26e42f
+[root@tw30mall ~]# docker exec -it mysql /bin/bash
+root@c5ee6283fd75:/# mysql -uroot -proot --default-character-set=utf8
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.7.32 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database mall character set utf8
+    -> ;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> exit;
+Bye
+root@c5ee6283fd75:/# exit
+exit
+
+[root@tw30mall /]# cd /mydata
+[root@tw30mall mydata]# yum install -y wget
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror01.idc.hinet.net
+ * epel: d2lzkl7pfhq30w.cloudfront.net
+ * extras: mirror01.idc.hinet.net
+ * updates: mirror01.idc.hinet.net
+Resolving Dependencies
+--> Running transaction check
+---> Package wget.x86_64 0:1.14-18.el7_6.1 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+======================================================================================================================================================================================================================================== Package                                              Arch                                                   Version                                                         Repository                                            Size
+========================================================================================================================================================================================================================================Installing:
+ wget                                                 x86_64                                                 1.14-18.el7_6.1                                                 base                                                 547 k
+
+Transaction Summary
+========================================================================================================================================================================================================================================Install  1 Package
+
+Total download size: 547 k
+Installed size: 2.0 M
+Downloading packages:
+wget-1.14-18.el7_6.1.x86_64.rpm                                                                                                                                                                                  | 547 kB  00:00:00     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : wget-1.14-18.el7_6.1.x86_64                                                                                                                                                                                          1/1 
+  Verifying  : wget-1.14-18.el7_6.1.x86_64                                                                                                                                                                                          1/1 
+
+Installed:
+  wget.x86_64 0:1.14-18.el7_6.1                                                                                                                                                                                                         
+
+Complete!
+[root@tw30mall mydata]# wget 
+wget: missing URL
+Usage: wget [OPTION]... [URL]...
+
+Try `wget --help' for more options.
+[root@tw30mall mydata]# wget https://raw.githubusercontent.com/macrozheng/mall/master/document/sql/mall.sql
+--2021-01-13 01:52:14--  https://raw.githubusercontent.com/macrozheng/mall/master/document/sql/mall.sql
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.0.133, 151.101.64.133, 151.101.128.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.0.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 219343 (214K) [text/plain]
+Saving to: ‘mall.sql’
+
+100%[==============================================================================================================================================================================================>] 219,343     --.-K/s   in 0.03s   
+
+2021-01-13 01:52:16 (7.00 MB/s) - ‘mall.sql’ saved [219343/219343]
+
+[root@tw30mall mydata]# docker cp /mydata/mall.sql mysql:/
+[root@tw30mall mydata]# docker exec -it mysql /bin/bash
+root@c5ee6283fd75:/# mysql -uroot -proot --default-character-set=utf8
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.7.32 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use mall;
+Database changed
+mysql> source /mall.sql;
+Query OK, 0 rows affected (0.00 sec)
+
+.
+.
+.
+
+mysql> grant all privileges on *.* to 'reader' @'%' identified by '123456';
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> exit
+Bye
+root@c5ee6283fd75:/# exit
+exit
+[root@tw30mall mydata]# 

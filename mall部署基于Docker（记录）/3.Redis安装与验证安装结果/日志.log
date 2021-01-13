@@ -1,0 +1,22 @@
+[root@tw30mall ~]# docker pull redis:5
+5: Pulling from library/redis
+a076a628af6f: Already exists 
+f40dd07fe7be: Pull complete 
+ce21c8a3dbee: Pull complete 
+c2386bee3417: Pull complete 
+46e9872918d1: Pull complete 
+92b0c74830d4: Pull complete 
+Digest: sha256:49255a58c9f6611e5b9e90f14f3ff8961f0801871b76194058b4a6cd98e75c4e
+Status: Downloaded newer image for redis:5
+docker.io/library/redis:5
+[root@tw30mall ~]# docker run -p 6379:6379 --name redis \
+> -v /mydata/redis/data:/data \
+> -d redis:5 redis-server --appendonly yes
+1f5cbe2441abe54992fe41a99719608253d8f8fd5d0a62c6c2796caa77e2204e
+[root@tw30mall ~]# docker exec -it redis redis-cli
+127.0.0.1:6379> set a 2021
+OK
+127.0.0.1:6379> get a
+"2021"
+127.0.0.1:6379> exit
+[root@tw30mall ~]# 

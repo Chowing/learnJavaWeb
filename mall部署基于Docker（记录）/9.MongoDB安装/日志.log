@@ -1,0 +1,23 @@
+[root@tw30mall ~]# docker pull mongo:4.2.5
+4.2.5: Pulling from library/mongo
+5bed26d33875: Pull complete 
+f11b29a9c730: Pull complete 
+930bda195c84: Pull complete 
+78bf9a5ad49e: Pull complete 
+3d7fb3809884: Pull complete 
+a7237292ff8a: Pull complete 
+8cdf1eb96f71: Pull complete 
+d39c254c6294: Pull complete 
+110f77aab367: Pull complete 
+b8e0c6e877ce: Pull complete 
+f4a88f43fe6b: Pull complete 
+0887c9446450: Pull complete 
+c0fb442f2202: Pull complete 
+Digest: sha256:0e1b5e4493ff8174be20fc5145ac09979a1b67ec4808bbedd1debfc63a9688e0
+Status: Downloaded newer image for mongo:4.2.5
+docker.io/library/mongo:4.2.5
+[root@tw30mall ~]# docker run -p 27017:27017 --name mongo \
+> -v /mydata/mongo/db:/data/db \
+> -d mongo:4.2.5
+2c37ec9c1eb9d81a5cee9c56e4d09c6c8a3585592f2d93a13f5d27f3ef7625ca
+[root@tw30mall ~]# 

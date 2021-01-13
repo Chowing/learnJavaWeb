@@ -1,0 +1,7 @@
+下载MongoDB4.2.5的docker镜像：
+docker pull mongo:4.2.5
+   
+使用docker命令启动：
+docker run -p 27017:27017 --name mongo \
+-v /mydata/mongo/db:/data/db \
+-d mongo:4.2.5

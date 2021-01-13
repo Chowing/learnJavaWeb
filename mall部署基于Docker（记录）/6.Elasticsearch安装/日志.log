@@ -1,0 +1,55 @@
+[root@tw30mall nginx]# docker pull elasticsearch:7.6.2
+7.6.2: Pulling from library/elasticsearch
+ab5ef0e58194: Pull complete 
+c4d1ca5c8a25: Pull complete 
+941a3cc8e7b8: Pull complete 
+43ec483d9618: Pull complete 
+c486fd200684: Pull complete 
+1b960df074b2: Pull complete 
+1719d48d6823: Pull complete 
+Digest: sha256:1b09dbd93085a1e7bca34830e77d2981521a7210e11f11eda997add1c12711fa
+Status: Downloaded newer image for elasticsearch:7.6.2
+docker.io/library/elasticsearch:7.6.2
+[root@tw30mall nginx]# sysctl -w vm.max_map_count=262144
+vm.max_map_count = 262144
+[root@tw30mall nginx]# cd /mydata
+[root@tw30mall mydata]# ll
+total 216
+-rw-r--r--. 1 root root 219343 Jan 13 01:52 mall.sql
+drwxr-xr-x. 5 root root     41 Jan 13 01:36 mysql
+drwxr-xr-x. 5 root root     42 Jan 13 02:05 nginx
+drwxr-xr-x. 3 root root     18 Jan 13 01:58 redis
+[root@tw30mall mydata]# mkdir elasticsearch
+[root@tw30mall mydata]# cd elasticsearch/
+[root@tw30mall elasticsearch]# mkdir data
+[root@tw30mall elasticsearch]# chmod 777 /mydata/elasticsearch/data/
+[root@tw30mall elasticsearch]# docker run -p 9200:9200 -p 9300:9300 --name elasticsearch \
+> -e "discovery.type=single-node" \
+> -e "cluster.name=elasticsearch" \
+> -v /mydata/elasticsearch/plugins:/usr/share/elasticsearch/plugins \
+> -v /mydata/elasticsearch/data:/usr/share/elasticsearch/data \
+> -d elasticsearch:7.6.2
+b62ac437eaecf6f5b181b6ab993d9a3938d5bd072c14d1febfdb4d2c9b4a5358
+[root@tw30mall elasticsearch]# docker exec -it elasticsearch /bin/bash
+[root@b62ac437eaec elasticsearch]# elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.6.2/elasticsearch-analysis-ik-7.6.2.zip
+-> Installing https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.6.2/elasticsearch-analysis-ik-7.6.2.zip
+-> Downloading https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.6.2/elasticsearch-analysis-ik-7.6.2.zip
+[=================================================] 100%?? 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@     WARNING: plugin requires additional permissions     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+* java.net.SocketPermission * connect,resolve
+See http://docs.oracle.com/javase/8/docs/technotes/guides/security/permissions.html
+for descriptions of what these permissions allow and the associated risks.
+
+Continue with installation? [y/N]y
+-> Installed analysis-ik
+[root@b62ac437eaec elasticsearch]# exit
+exit
+[root@tw30mall elasticsearch]# docker restart elasticsearch
+elasticsearch
+[root@tw30mall elasticsearch]# firewall-cmd --zone=public --add-port=9200/tcp --permanent
+success
+[root@tw30mall elasticsearch]# firewall-cmd --reload
+success
+[root@tw30mall elasticsearch]# 

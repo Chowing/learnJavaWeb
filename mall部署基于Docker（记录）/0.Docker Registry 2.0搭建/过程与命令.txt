@@ -1,0 +1,31 @@
+开启防火墙的Docker构建端口
+firewall-cmd --zone=public --add-port=2375/tcp --permanent
+firewall-cmd --reload
+
+让Docker支持http上传镜像
+echo '{ "insecure-registries":["35.234.17.252:5000"] }' > /etc/docker/daemon.json
+
+Docker开启远程API
+用vim编辑器修改docker.service文件
+nano /usr/lib/systemd/system/docker.service
+需要修改的部分：
+ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+修改后的部分：
+ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock
+
+重新启动Docker服务
+systemctl stop docker
+systemctl start docker
+
+下载
+docker run -d -p 5000:5000 --restart=always --name registry2 registry:2
+
+如果遇到镜像下载不下来的情况，需要修改 /etc/docker/daemon.json 文件并添加上 registry-mirrors 键值，然后重启docker服务：
+{
+  "registry-mirrors": ["https://registry.docker-cn.com"]
+}
+
+
+
+
+

@@ -1,0 +1,25 @@
+[root@tw30mall ~]# docker pull kibana:7.6.2
+7.6.2: Pulling from library/kibana
+ab5ef0e58194: Already exists 
+c64d415fc4c4: Pull complete 
+40a228497f87: Pull complete 
+047cebeb3d2b: Pull complete 
+a1e90407e522: Pull complete 
+b665bda75e65: Pull complete 
+12bc27d9cfdc: Pull complete 
+2611a8427d9d: Pull complete 
+12efd486dee3: Pull complete 
+d2dfc5062b56: Pull complete 
+Digest: sha256:097e2b7f33f353a8fc19bbf2a6558431c63637113fdc625e6d34fc46f96c0130
+Status: Downloaded newer image for kibana:7.6.2
+docker.io/library/kibana:7.6.2
+[root@tw30mall ~]# firewall-cmd --zone=public --add-port=5601/tcp --permanent
+success
+[root@tw30mall ~]# firewall-cmd --reload
+success
+[root@tw30mall ~]# docker run --name kibana -p 5601:5601 \
+> --link elasticsearch:es \
+> -e "elasticsearch.hosts=http://es:9200" \
+> -d kibana:7.6.2
+7626e8d1e387e649574eee9c7cc4bae6a8eb321a55d58883fb78ca6754c7ec38
+[root@tw30mall ~]# 
